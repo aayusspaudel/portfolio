@@ -54,3 +54,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+cript>
+  (function(){
+    var overlay = document.getElementById('pcDisclaimer');
+    var dismissBtn = document.getElementById('dismissBtn');
+    var gotItBtn = document.getElementById('gotItBtn');
+ 
+    function closeModal(){
+      overlay.style.animation = 'fadeIn .25s ease reverse forwards';
+      setTimeout(function(){ overlay.style.display = 'none'; }, 220);
+      try{ sessionStorage.setItem('pcDisclaimerShown', '1'); }catch(e){}
+    }
+ 
+    dismissBtn.addEventListener('click', closeModal);
+    gotItBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeModal();
+    });
+ 
+    // Only show on smaller / touch screens, and only once per session.
+    // Comment this block out to always show (useful while testing on desktop).
+ 
+    var isSmallScreen = window.innerWidth < 1024;
+    var alreadyShown = false;
+    try{ alreadyShown = sessionStorage.getItem('pcDisclaimerShown') === '1'; }catch(e){}
+ 
+    if(!isSmallScreen || alreadyShown){
+      overlay.style.display = 'none';
+    }
+  })();
