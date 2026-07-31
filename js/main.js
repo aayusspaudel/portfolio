@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-cript>
+
   (function(){
     var overlay = document.getElementById('pcDisclaimer');
     var dismissBtn = document.getElementById('dismissBtn');
