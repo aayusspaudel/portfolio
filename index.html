@@ -21,6 +21,75 @@
 
 <body class="loading">
 
+    <div class="disclaimer-overlay" id="pcDisclaimer">
+  <div class="disclaimer-modal" role="dialog" aria-modal="true" aria-labelledby="disclaimerTitle">
+    <div class="disclaimer-titlebar">
+      <span class="disclaimer-dot red"></span>
+      <span class="disclaimer-dot yellow"></span>
+      <span class="disclaimer-dot green"></span>
+      <span class="disclaimer-titlebar-label">guest@portfolio:~ $ notice</span>
+    </div>
+ 
+    <div class="disclaimer-body">
+      <div class="disclaimer-prompt"><span class="prompt-user">visitor@device</span> — screen check</div>
+ 
+      <div class="disclaimer-icon">⚠</div>
+ 
+      <h3 class="disclaimer-title" id="disclaimerTitle">Heads up<span class="cursor"></span></h3>
+ 
+      <p class="disclaimer-text">
+        This site is built with <span class="hl">desktop-first</span> interactions —
+        cursor effects, layered motion, precise spacing.
+      </p>
+      <p class="disclaimer-subtext">
+        For the full experience, use a <span class="hl warn">PC / laptop</span>.
+        Mobile still works, just not at its best.
+      </p>
+ 
+      <div class="disclaimer-actions">
+        <button class="disclaimer-btn disclaimer-btn-ghost" id="disclaimerDismiss">Continue anyway</button>
+        <button class="disclaimer-btn disclaimer-btn-primary" id="disclaimerGotIt">Got it ▶</button>
+      </div>
+ 
+      <div class="disclaimer-footnote">won't show again this session</div>
+    </div>
+  </div>
+</div>
+ 
+<script>
+  (function () {
+    var overlay = document.getElementById('pcDisclaimer');
+    if (!overlay) return;
+ 
+    var dismissBtn = document.getElementById('disclaimerDismiss');
+    var gotItBtn = document.getElementById('disclaimerGotIt');
+ 
+    function closeModal() {
+      overlay.style.animation = 'disclaimerFadeIn 0.25s ease reverse forwards';
+      setTimeout(function () { overlay.style.display = 'none'; }, 220);
+      try { sessionStorage.setItem('pcDisclaimerShown', '1'); } catch (e) {}
+    }
+ 
+    dismissBtn.addEventListener('click', closeModal);
+    gotItBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+ 
+    // Only show on smaller / touch screens, once per session.
+    var isSmallScreen = window.innerWidth < 1024;
+    var alreadyShown = false;
+    try { alreadyShown = sessionStorage.getItem('pcDisclaimerShown') === '1'; } catch (e) {}
+ 
+    if (!isSmallScreen || alreadyShown) {
+      overlay.style.display = 'none';
+    }
+  })();
+</script>
+
     
  
 <div class="disclaimer-overlay" id="pcDisclaimer">
