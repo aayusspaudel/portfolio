@@ -1,1 +1,200 @@
 
+============================================
+   PC DISCLAIMER POPUP
+   Uses existing design tokens from style.css —
+   no globals touched, safe to drop in anywhere.
+   ============================================ */
+ 
+.disclaimer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 13, 26, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  padding: var(--space-md);
+  opacity: 0;
+  animation: disclaimerFadeIn 0.35s var(--ease-smooth) forwards;
+}
+ 
+@keyframes disclaimerFadeIn {
+  to { opacity: 1; }
+}
+ 
+.disclaimer-modal {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.92));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  box-shadow: var(--glow-accent), 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  transform: translateY(16px) scale(0.98);
+  opacity: 0;
+  animation: disclaimerRiseIn 0.45s var(--ease-spring) 0.1s forwards;
+}
+ 
+@keyframes disclaimerRiseIn {
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+ 
+.disclaimer-modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+ 
+.disclaimer-titlebar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 14px;
+  background: rgba(7, 13, 26, 0.6);
+  border-bottom: 1px solid var(--border-color);
+  font-family: var(--font-mono);
+}
+ 
+.disclaimer-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+.disclaimer-dot.red { background: #ef4444; }
+.disclaimer-dot.yellow { background: #f59e0b; }
+.disclaimer-dot.green { background: var(--accent); box-shadow: var(--glow-accent); }
+ 
+.disclaimer-titlebar-label {
+  margin-left: 4px;
+  font-size: var(--fs-xs);
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+ 
+.disclaimer-body {
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
+}
+ 
+.disclaimer-prompt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--accent-dim);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+}
+.disclaimer-prompt .prompt-user { color: var(--accent); text-shadow: var(--glow-text-accent); }
+ 
+.disclaimer-icon {
+  font-size: var(--fs-xl);
+  color: var(--warning);
+  margin-bottom: var(--space-sm);
+}
+ 
+.disclaimer-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-md);
+}
+ 
+.disclaimer-title .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: var(--accent);
+  box-shadow: var(--glow-accent);
+  margin-left: 5px;
+  vertical-align: -2px;
+  animation: disclaimerBlink 1s step-end infinite;
+}
+@keyframes disclaimerBlink { 50% { opacity: 0; } }
+ 
+.disclaimer-text {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0 0 8px;
+}
+.disclaimer-text .hl {
+  color: var(--accent);
+  font-weight: 600;
+}
+.disclaimer-text .hl.warn {
+  color: var(--warning);
+}
+ 
+.disclaimer-subtext {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 10px 0 0;
+}
+ 
+.disclaimer-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+ 
+.disclaimer-btn {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.15s var(--ease-smooth), background 0.2s, border-color 0.2s, color 0.2s;
+}
+.disclaimer-btn:active { transform: scale(0.97); }
+ 
+.disclaimer-btn-primary {
+  background: var(--accent);
+  color: var(--primary-deep);
+  box-shadow: var(--glow-accent);
+}
+.disclaimer-btn-primary:hover {
+  background: var(--accent-bright);
+  box-shadow: var(--glow-accent-strong);
+}
+ 
+.disclaimer-btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border-color: var(--border-color);
+}
+.disclaimer-btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-dim);
+}
+ 
+.disclaimer-footnote {
+  margin-top: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  opacity: 0.6;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+ 
+@media (max-width: 420px) {
+  .disclaimer-body { padding: var(--space-lg) var(--space-md) var(--space-md); }
+  .disclaimer-actions { flex-direction: column; }
+}
